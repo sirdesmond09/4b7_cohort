@@ -1,27 +1,26 @@
 import random
 import time
-import ast
 
 def write_to_file(type, data):
     if type == 'customer':
-        file = 'bankapp_v3/customers.txt'
+        file = 'bankapp_correction/customers.txt'
     elif type == 'transaction':
-        file = 'bankapp_v3/transactions.txt'
+        file = 'bankapp_correction/transactions.txt'
         
     with open(file, 'w') as doc_file:
         doc_file.write(f'{data}')
     
 
 def read_file_data():
-    trans_file = 'bankapp_v3/transactions.txt'
-    customer_file = 'bankapp_v3/customers.txt'
+    trans_file = 'bankapp_correction/transactions.txt'
+    customer_file = 'bankapp_correction/customers.txt'
     
     with open(customer_file, 'r') as customer:
         cus_data = customer.read()
-        customer_data = ast.literal_eval(cus_data)
+        customer_data = eval(cus_data)
     with open(trans_file, 'r') as transaction:
         trans_data = transaction.read()
-        transaction_data = ast.literal_eval(trans_data)   
+        transaction_data = eval(trans_data)   
 
     return customer_data, transaction_data
 
@@ -53,7 +52,7 @@ def generate_acc_num():
     return account_num
 
 while keep_running:
-    user_activity = input("Enter s to signup, l to login and anyother key to quit\n>>").lower()
+    user_activity = input("Enter s to signup, l to login and any other key to quit\n>>").lower()
     if user_activity=='s':
         name = input("Name:\n>>")
         pin = input("Enter 4 digit pin:\n>>")
