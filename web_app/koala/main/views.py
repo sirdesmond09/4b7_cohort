@@ -8,5 +8,5 @@ def home_page(request):
     return render(request, "home.html")
 
 
-def about_page(request):
-    return HttpResponse("This is my about page and I am interested in it!!")
+def contact_us(request):
+    return render(request, "contact.html")
