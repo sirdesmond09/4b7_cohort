@@ -9,4 +9,11 @@ def home_page(request):
 
 
 def contact_us(request):
+    
+    if request.method == "POST":
+        request_data = dict(request.POST)
+        request_data.pop('csrfmiddlewaretoken')
+        data = {key:request_data.get(key)[0] for key in request_data}
+        
+        print(data)
     return render(request, "contact.html")
