@@ -11,21 +11,37 @@ Contact Us
     <a href="https://www.linkedin.com/in/sarah-akan-738310222/">LinkedIn</a>
 
 </div>
+<br>
+<br>
+<div>
+    <p>You have {{ contacts.count  }} contact message{{ contacts.count | pluralize  }}</p><br>
 
+    <ol>
+        {% for contact in contacts %}
+            <li>
+                {{ contact.message }} by {{ contact.name }} posted on {{ contact.date_created }}
+            </li>
+            <br>
+        {% endfor %}
+    </ol>
+
+</div>
+<br>
+<br>
 
 <form action="." method="post">
     {% csrf_token %}
     <div>
       <label for="name">Name:</label>
-      <input type="text" id="name" name="my_name" placeholder="Enter Your Name" required>
+      <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
     </div>
     <div>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="my_email" placeholder="Enter Your Email" required>
+        <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
     </div>
     <div>
         <label for="message">Message:</label>
-        <input type="text" id="message" name="my_message"  placeholder="Enter Your Message" required>
+        <input type="text" id="message" name="message"  placeholder="Enter Your Message" required>
     </div>
     
     <input type="submit" value = "Submit">
