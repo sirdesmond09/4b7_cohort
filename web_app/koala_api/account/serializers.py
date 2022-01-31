@@ -10,3 +10,10 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         # fields = '__all__'
         fields = ['id','first_name', 'last_name', 'email', 'password','phone', 'date_joined']
+
+
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(max_length=255)
+    
