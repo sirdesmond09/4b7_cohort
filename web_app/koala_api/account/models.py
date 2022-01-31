@@ -19,7 +19,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(_('superuser'), default=False)
     is_active = models.BooleanField(_('active'), default=True)
     
-    
+
 
     objects = UserManager()
 
@@ -27,8 +27,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['phone']
 
     class Meta:
-        verbose_name = _('Custom user')
-        verbose_name_plural = _('Custom users')
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
         
     
     def __str__(self) -> str:
