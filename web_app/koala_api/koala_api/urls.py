@@ -25,7 +25,7 @@ schema_view = get_schema_view(
       title="Koala API",
       default_version='v1',
       description="""
-      This is a dummy description""",
+      This is a dummy description.""",
       terms_of_service="",
       contact=openapi.Contact(email="desmond@univelcity.com"),
       license=openapi.License(name="MIT License"),
@@ -33,6 +33,7 @@ schema_view = get_schema_view(
    public=True,
    permission_classes=[permissions.AllowAny],
 )
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
