@@ -6,7 +6,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.translation import gettext_lazy as _
 
 from .managers import UserManager
-
+from django.utils import timezone
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
@@ -17,7 +17,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(_('staff'), default=False)
     is_admin = models.BooleanField(_('admin'), default=False)
     is_superuser = models.BooleanField(_('superuser'), default=False)
-    is_active = models.BooleanField(_('active'), default=True)
+    is_active = models.BooleanField(_('active'), default=False)
     
 
 
@@ -37,5 +37,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     
 
     
+class Otp(models.Model):
+    code = models.CharField(max_length=6)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    expiry_date = models.DateTimeField()
+    
+    def __str__(self) -> str:
+        return f"{self.code} >>> {self.user.email}"
     
     
+    def is_expired(self):
+        return timezone.now() > self.expiry_date

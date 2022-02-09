@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status 
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from .serializers import UserSerializer, LoginSerializer
+from .serializers import ResendOTPSerializer, UserSerializer, LoginSerializer, VerifyOTPSerializer
 from django.contrib.auth import get_user_model
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -187,4 +187,30 @@ def profile_view(request):
         return Response({}, status=status.HTTP_204_NO_CONTENT)
     
 
+@swagger_auto_schema(methods=['POST'] ,
+                    request_body=VerifyOTPSerializer())
+@api_view(["POST"])
+def verify_otp(request):
+    serializer = VerifyOTPSerializer(data=request.data)
 
+    if serializer.is_valid():
+        user = serializer.verify()
+        user_serializer = UserSerializer(user)
+        data = {
+            'message' : 'account activated',
+            'data' : user_serializer.data
+        }
+        return Response(data, status=status.HTTP_200_OK)
+    
+    
+    
+@swagger_auto_schema(methods=['POST'] ,
+                    request_body=ResendOTPSerializer())
+@api_view(["POST"])
+def new_otp(request):
+    serializer = ResendOTPSerializer(data=request.data)
+
+    if serializer.is_valid():
+        data = serializer.get_new_otp()
+        
+        return Response(data, status=status.HTTP_200_OK)
